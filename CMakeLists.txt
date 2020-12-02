@@ -21,8 +21,12 @@ if(SUNSET_BUILD_SHARED)
 else()
     add_library (${PROJECT_NAME} STATIC ${SOURCES})
 endif()
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wno-long-long -pedantic)
+target_compile_options(${PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall -Wno-long-long -pedantic>)
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
+set(EXAMPLE_NAME example)
+add_executable(${EXAMPLE_NAME} example.cpp)
+target_link_libraries(${EXAMPLE_NAME} ${PROJECT_NAME})
 
 install (TARGETS ${PROJECT_NAME} DESTINATION lib)
 install (FILES ${HEADERS} DESTINATION include)

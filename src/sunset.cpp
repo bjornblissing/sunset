@@ -258,8 +258,8 @@ double SunSet::calcJD(int y, int m, int d) const
         y -= 1;
         m += 12;
     }
-    int A = floor(y/100);
-    int B = 2 - A + floor(A/4);
+    int A = static_cast<int>(floor(y/100));
+    int B = 2 - A + static_cast<int>(floor(A/4));
 
     double JD = floor(365.25*(y + 4716)) + floor(30.6001*(m+1)) + d + B - 1524.5;
     return JD;
@@ -566,7 +566,7 @@ int SunSet::moonPhase(int fromepoch) const
 {
 	int moonepoch = 614100;
     int phase = (fromepoch - moonepoch) % 2551443;
-    int res = floor(phase / (24 * 3600)) + 1;
+    int res = static_cast<int>(floor(phase / (24 * 3600)) + 1);
 	
     if (res == 30)
         res = 0;
